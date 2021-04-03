@@ -17,8 +17,7 @@ class TypiCodeAPIServiceDataSourceImpl(private val apiService: TypiCodeAPIServic
     override suspend fun getPosts() {
         try {
             val posts = apiService.getPosts().await()
-            _posts.value = posts
-            Log.e("reso", posts.toString())
+            _posts.postValue(posts)
         } catch (e: NoConnectivityException) {
             Log.d("API Service", "no connectivity")
         } catch (e: Exception) {
