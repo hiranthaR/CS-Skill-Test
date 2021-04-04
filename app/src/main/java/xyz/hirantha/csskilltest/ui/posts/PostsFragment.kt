@@ -44,7 +44,7 @@ class PostsFragment : ScopedFragment(), DIAware {
     private fun bindUI() = launch {
 
         binding.fabToggleThem.setOnClickListener {
-            viewModel.toggleTheme()
+            navController.navigate(R.id.action_postsFragment_to_settingFragment)
         }
 
         binding.fabAddPost.setOnClickListener {

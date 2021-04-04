@@ -16,6 +16,7 @@ import xyz.hirantha.csskilltest.data.repository.RepositoryImpl
 import xyz.hirantha.csskilltest.ui.createpost.CreatePostViewModelFactory
 import xyz.hirantha.csskilltest.ui.post.PostViewModelFactory
 import xyz.hirantha.csskilltest.ui.posts.PostsViewModelFactory
+import xyz.hirantha.csskilltest.ui.settings.SettingsViewModelFactory
 import xyz.hirantha.csskilltest.ui.user.ProfileViewModelFactory
 
 class CSSkillTestApplication : Application(), DIAware {
@@ -64,5 +65,6 @@ class CSSkillTestApplication : Application(), DIAware {
         bind() from factory { postId: Int -> PostViewModelFactory(instance(), postId) }
         bind() from factory { userId: Int -> ProfileViewModelFactory(instance(), userId) }
         bind() from provider { CreatePostViewModelFactory(instance()) }
+        bind() from provider { SettingsViewModelFactory(instance()) }
     }
 }
