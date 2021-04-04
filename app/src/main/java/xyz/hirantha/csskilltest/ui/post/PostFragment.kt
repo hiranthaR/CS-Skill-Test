@@ -32,7 +32,7 @@ class PostFragment : ScopedFragment(), DIAware {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPostBinding.inflate(inflater)
         return binding.root
     }
