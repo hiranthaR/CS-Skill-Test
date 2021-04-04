@@ -11,6 +11,7 @@ import xyz.hirantha.csskilltest.data.remote.interceptors.ConnectivityInterceptor
 import xyz.hirantha.csskilltest.data.remote.interceptors.ConnectivityInterceptorImpl
 import xyz.hirantha.csskilltest.data.repository.Repository
 import xyz.hirantha.csskilltest.data.repository.RepositoryImpl
+import xyz.hirantha.csskilltest.ui.createpost.CreatePostViewModelFactory
 import xyz.hirantha.csskilltest.ui.post.PostViewModelFactory
 import xyz.hirantha.csskilltest.ui.posts.PostsViewModelFactory
 import xyz.hirantha.csskilltest.ui.user.ProfileViewModelFactory
@@ -56,5 +57,6 @@ class CSSkillTestApplication : Application(), DIAware {
         bind() from provider { PostsViewModelFactory(instance()) }
         bind() from factory { postId: Int -> PostViewModelFactory(instance(), postId) }
         bind() from factory { userId: Int -> ProfileViewModelFactory(instance(), userId) }
+        bind() from provider { CreatePostViewModelFactory(instance()) }
     }
 }
