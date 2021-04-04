@@ -41,6 +41,8 @@ class ProfileFragment : ScopedFragment(), DIAware {
 
     private fun bindUI() = launch {
         viewModel.user.await().observeForever {
+            if(it== null) return@observeForever
+            binding.progressCircular.visibility = View.GONE
             Glide.with(requireContext())
                 .load(it.avatar)
                 .centerCrop()

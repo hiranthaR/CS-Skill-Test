@@ -1,7 +1,6 @@
 package xyz.hirantha.csskilltest.ui.post
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +19,7 @@ import xyz.hirantha.csskilltest.R
 import xyz.hirantha.csskilltest.databinding.FragmentPostBinding
 import xyz.hirantha.csskilltest.internal.ScopedFragment
 import xyz.hirantha.csskilltest.models.Comment
-import xyz.hirantha.csskilltest.models.PostAndUserWithComments
 import xyz.hirantha.csskilltest.ui.listitems.CommentItem
-import xyz.hirantha.csskilltest.ui.listitems.PostItem
-import xyz.hirantha.csskilltest.ui.posts.PostsFragmentDirections
-
 
 class PostFragment : ScopedFragment(), DIAware {
 
@@ -63,6 +58,16 @@ class PostFragment : ScopedFragment(), DIAware {
                 .error(R.drawable.user)
                 .into(binding.imgAvatar)
             initCommentsRecyclerView(it.comments.toCommentItems())
+
+            binding.imgAvatar.setOnClickListener { _ ->
+                val action = PostFragmentDirections.actionPostFragmentToProfileFragment(it.user.id)
+                navController.navigate(action)
+            }
+
+            binding.tvName.setOnClickListener { _ ->
+                val action = PostFragmentDirections.actionPostFragmentToProfileFragment(it.user.id)
+                navController.navigate(action)
+            }
         })
     }
 
