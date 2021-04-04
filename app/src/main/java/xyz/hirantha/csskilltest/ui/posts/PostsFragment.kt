@@ -44,18 +44,21 @@ class PostsFragment : ScopedFragment(), DIAware {
     private fun bindUI() = launch {
         viewModel.posts.await().observe(viewLifecycleOwner, {
             if (it == null) return@observe
+            binding.progressCircular.visibility = View.GONE
             initPostRecyclerView(it.toPostItems())
         })
     }
 
-    private fun List<PostAndUser>.toPostItems(): List<PostItem> = this.map { PostItem(it,requireContext()) }
+    private fun List<PostAndUser>.toPostItems(): List<PostItem> =
+        this.map { PostItem(it, requireContext()) }
 
-    private fun initPostRecyclerView(posts:List<PostItem>){
+    private fun initPostRecyclerView(posts: List<PostItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(posts)
             setOnItemClickListener { item, _ ->
-                (item as? PostItem)?.let {  postItem ->
-                    val action = PostsFragmentDirections.actionPostsFragmentToPostFragment(postItem.postAndUser.post.id)
+                (item as? PostItem)?.let { postItem ->
+                    val action =
+                        PostsFragmentDirections.actionPostsFragmentToPostFragment(postItem.postAndUser.post.id)
                     navController.navigate(action)
                 }
             }
