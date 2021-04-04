@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -80,5 +84,5 @@ dependencies {
     // Groupie RecyclerView
     def groupie_version = "2.9.0"
     implementation "com.xwray:groupie:$groupie_version"
-    implementation "com.xwray:groupie-kotlin-android-extensions:$groupie_version"
+    implementation "com.xwray:groupie-viewbinding:$groupie_version"
 }
