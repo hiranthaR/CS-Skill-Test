@@ -26,5 +26,6 @@ data class User(
     @SerializedName("username")
     val username: String,
     @SerializedName("website")
-    val website: String
+    val website: String,
+    var avatar:String?
 )

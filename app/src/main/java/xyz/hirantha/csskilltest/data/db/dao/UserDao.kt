@@ -11,7 +11,10 @@ import xyz.hirantha.csskilltest.models.User
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsertUsers(posts: List<User>)
+    fun upsertUsers(users: List<User>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsertUser(user: User)
 
     @Query("SELECT * FROM users;")
     fun getUsers(): LiveData<List<User>>
