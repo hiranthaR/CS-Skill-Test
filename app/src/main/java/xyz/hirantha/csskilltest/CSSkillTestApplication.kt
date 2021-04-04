@@ -13,6 +13,7 @@ import xyz.hirantha.csskilltest.data.repository.Repository
 import xyz.hirantha.csskilltest.data.repository.RepositoryImpl
 import xyz.hirantha.csskilltest.ui.post.PostViewModelFactory
 import xyz.hirantha.csskilltest.ui.posts.PostsViewModelFactory
+import xyz.hirantha.csskilltest.ui.user.ProfileViewModelFactory
 
 class CSSkillTestApplication : Application(), DIAware {
     override val di: DI = DI.lazy {
@@ -42,10 +43,18 @@ class CSSkillTestApplication : Application(), DIAware {
         }
 
         // repository
-        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(), instance(),instance()) }
+        bind<Repository>() with singleton {
+            RepositoryImpl(
+                instance(),
+                instance(),
+                instance(),
+                instance()
+            )
+        }
 
         // view model factories
         bind() from provider { PostsViewModelFactory(instance()) }
         bind() from factory { postId: Int -> PostViewModelFactory(instance(), postId) }
+        bind() from factory { userId: Int -> ProfileViewModelFactory(instance(), userId) }
     }
 }
