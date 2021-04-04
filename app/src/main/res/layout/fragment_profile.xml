@@ -24,39 +24,157 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_username_label"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_username"
         android:layout_marginVertical="8dp"
+        android:text="UserName"
+        app:layout_constraintEnd_toStartOf="@id/tv_username"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_avatar" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_username"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_username_label"
+        app:layout_constraintTop_toBottomOf="@id/img_avatar" />
+
+    <TextView
+        android:id="@+id/tv_email_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="Email"
+        app:layout_constraintEnd_toStartOf="@id/tv_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+    <TextView
         android:id="@+id/tv_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_email_label"
         android:layout_marginVertical="8dp"
         app:layout_constraintTop_toBottomOf="@id/tv_username" />
 
-
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_address_label"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_address"
         android:layout_marginVertical="8dp"
+        android:text="Address"
+        app:layout_constraintEnd_toStartOf="@id/tv_address"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_address"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_company"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_address_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_email" />
+
+
+    <TextView
+        android:id="@+id/tv_phone_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="Phone"
+        app:layout_constraintEnd_toStartOf="@id/tv_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_phone_label"
         android:layout_marginVertical="8dp"
         app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
+
+    <TextView
+        android:id="@+id/tv_website_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="Website"
+        app:layout_constraintEnd_toStartOf="@id/tv_website"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+    <TextView
+        android:id="@+id/tv_website"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_website_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+
+    <TextView
+        android:id="@+id/tv_zip_code_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="Zip Code"
+        app:layout_constraintEnd_toStartOf="@id/tv_zip_code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_website" />
+
+    <TextView
+        android:id="@+id/tv_zip_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_zip_code_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_website" />
+
+    <TextView
+        android:id="@+id/tv_company_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="Company"
+        app:layout_constraintEnd_toStartOf="@id/tv_company"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_zip_code" />
+
+    <TextView
+        android:id="@+id/tv_company"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_company_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_zip_code" />
+
+    <TextView
+        android:id="@+id/tv_map_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:text="Location"
+        app:layout_constraintEnd_toStartOf="@id/tv_company"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_company" />
+
     <ImageView
+        android:id="@+id/img_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/img_map"
-        app:layout_constraintTop_toBottomOf="@id/tv_company"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_map_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

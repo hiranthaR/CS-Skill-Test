@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_postsFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -21,6 +24,18 @@
         tools:layout="@layout/fragment_post" >
         <argument
             android:name="postId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_postFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="xyz.hirantha.csskilltest.ui.user.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="userId"
             app:argType="integer" />
     </fragment>
 </navigation>
