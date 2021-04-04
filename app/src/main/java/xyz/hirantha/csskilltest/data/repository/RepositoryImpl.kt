@@ -6,12 +6,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import xyz.hirantha.csskilltest.data.db.dao.PostDao
+import xyz.hirantha.csskilltest.data.db.dao.UserDao
 import xyz.hirantha.csskilltest.data.remote.datasources.TypiCodeAPIServiceDataSource
 import xyz.hirantha.csskilltest.models.Post
+import xyz.hirantha.csskilltest.models.User
 
 class RepositoryImpl(
     private val remoteDataSource: TypiCodeAPIServiceDataSource,
-    private val postDao: PostDao
+    private val postDao: PostDao,
+    private val userDao: UserDao,
 ) : Repository {
 
     init {
@@ -19,6 +22,15 @@ class RepositoryImpl(
             posts.observeForever {
                 persistPosts(it)
             }
+            users.observeForever {
+                persistUsers(it)
+            }
+        }
+    }
+
+    private fun persistUsers(users: List<User>?) {
+        GlobalScope.launch(Dispatchers.IO) {
+            users?.let { userDao.upsertUsers(it) }
         }
     }
 
