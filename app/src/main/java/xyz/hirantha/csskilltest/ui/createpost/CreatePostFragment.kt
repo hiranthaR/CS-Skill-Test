@@ -1,13 +1,14 @@
 package xyz.hirantha.csskilltest.ui.createpost
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import xyz.hirantha.csskilltest.R
+import xyz.hirantha.csskilltest.internal.ScopedFragment
+import xyz.hirantha.csskilltest.internal.eventexecutor.MessageEvents
 
-class CreatePostFragment : Fragment() {
+class CreatePostFragment : ScopedFragment(),MessageEvents {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

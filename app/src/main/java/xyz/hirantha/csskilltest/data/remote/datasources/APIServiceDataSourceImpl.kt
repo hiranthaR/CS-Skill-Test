@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import xyz.hirantha.csskilltest.data.remote.api.TypiCodeAPIService
+import xyz.hirantha.csskilltest.data.remote.dto.requests.PostRequest
 import xyz.hirantha.csskilltest.internal.NoConnectivityException
+import xyz.hirantha.csskilltest.internal.Response
 import xyz.hirantha.csskilltest.models.Comment
 import xyz.hirantha.csskilltest.models.Post
 import xyz.hirantha.csskilltest.models.User
@@ -91,6 +93,21 @@ class APIServiceDataSourceImpl(
         } catch (e: Exception) {
             Log.d("API Service", e.message + "")
             e.printStackTrace()
+        }
+    }
+
+    override suspend fun addPost(title: String, body: String): Response {
+        try {
+            val post = typiCodeAPIService.addPost(PostRequest(title, body)).await()
+            _post.postValue(post)
+            return Response.DONE
+        } catch (e: NoConnectivityException) {
+            Log.d("API Service", "no connectivity")
+            return Response.CONNECTION_FAIL
+        } catch (e: Exception) {
+            Log.d("API Service", e.message + "")
+            e.printStackTrace()
+            return Response.ERROR
         }
     }
 }

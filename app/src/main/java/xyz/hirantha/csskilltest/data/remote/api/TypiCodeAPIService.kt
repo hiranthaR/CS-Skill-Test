@@ -5,8 +5,11 @@ import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import xyz.hirantha.csskilltest.data.remote.dto.requests.PostRequest
 import xyz.hirantha.csskilltest.data.remote.interceptors.ConnectivityInterceptor
 import xyz.hirantha.csskilltest.models.Comment
 import xyz.hirantha.csskilltest.models.Post
@@ -21,13 +24,16 @@ interface TypiCodeAPIService {
     fun getUsers(): Deferred<List<User>>
 
     @GET("/posts/{id}")
-    fun getPost(@Path("id") postId:Int): Deferred<Post>
+    fun getPost(@Path("id") postId: Int): Deferred<Post>
 
     @GET("/users/{id}")
-    fun getUser(@Path("id") userId:Int): Deferred<User>
+    fun getUser(@Path("id") userId: Int): Deferred<User>
 
     @GET("/posts/{id}/comments")
-    fun getComments(@Path("id") postId:Int): Deferred<List<Comment>>
+    fun getComments(@Path("id") postId: Int): Deferred<List<Comment>>
+
+    @POST("/posts")
+    fun addPost(@Body postRequest: PostRequest): Deferred<Post>
 
     companion object {
         operator fun invoke(

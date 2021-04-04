@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -36,5 +37,9 @@ open class ScopedFragment : Fragment(), CoroutineScope {
 
     fun navigate(action: Int) {
         navController.navigate(action)
+    }
+
+    fun showSnackBar(s: String) {
+        if (view != null) Snackbar.make(requireView(), s, Snackbar.LENGTH_SHORT).show()
     }
 }

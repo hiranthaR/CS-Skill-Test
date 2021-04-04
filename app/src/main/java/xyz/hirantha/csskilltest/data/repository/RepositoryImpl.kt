@@ -9,6 +9,7 @@ import xyz.hirantha.csskilltest.data.db.dao.CommentDao
 import xyz.hirantha.csskilltest.data.db.dao.PostDao
 import xyz.hirantha.csskilltest.data.db.dao.UserDao
 import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSource
+import xyz.hirantha.csskilltest.internal.Response
 import xyz.hirantha.csskilltest.models.*
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -99,6 +100,15 @@ class RepositoryImpl(
         return withContext(Dispatchers.IO) {
             remoteDataSource.getUser(userId)
             return@withContext userDao.getUser(userId)
+        }
+    }
+
+    override suspend fun addPost(title: String, body: String): Response {
+        return withContext(Dispatchers.IO) {
+            return@withContext remoteDataSource.addPost(
+                title,
+                body
+            )
         }
     }
 
