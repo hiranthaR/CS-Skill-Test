@@ -48,7 +48,7 @@ class PostsFragment : ScopedFragment(), DIAware {
         })
     }
 
-    private fun List<PostAndUser>.toPostItems(): List<PostItem> = this.map { PostItem(it) }
+    private fun List<PostAndUser>.toPostItems(): List<PostItem> = this.map { PostItem(it,requireContext()) }
 
     private fun initPostRecyclerView(posts:List<PostItem>){
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {

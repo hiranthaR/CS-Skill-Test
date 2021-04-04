@@ -11,10 +11,13 @@
         android:layout_margin="8dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_margin="8dp"
             android:id="@+id/img_profile"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
