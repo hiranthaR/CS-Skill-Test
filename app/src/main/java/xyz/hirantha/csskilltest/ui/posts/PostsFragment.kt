@@ -6,26 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
 import xyz.hirantha.csskilltest.R
+import xyz.hirantha.csskilltest.databinding.FragmentPostsBinding
 import xyz.hirantha.csskilltest.internal.ScopedFragment
+import xyz.hirantha.csskilltest.models.PostAndUser
+import xyz.hirantha.csskilltest.ui.listitems.PostItem
 
 class PostsFragment : ScopedFragment(), DIAware {
 
     override val di: DI by closestDI()
     private val viewModelFactory: PostsViewModelFactory by instance()
     private lateinit var viewModel: PostsViewModel
-
+    private lateinit var binding: FragmentPostsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_posts, container, false)
+    ): View {
+        binding = FragmentPostsBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +44,22 @@ class PostsFragment : ScopedFragment(), DIAware {
     private fun bindUI() = launch {
         viewModel.posts.await().observe(viewLifecycleOwner, {
             if (it == null) return@observe
-            Log.e("data",it.toString())
+            initPostRecyclerView(it.toPostItems())
         })
+    }
+
+    private fun List<PostAndUser>.toPostItems(): List<PostItem> = this.map { PostItem(it) }
+
+    private fun initPostRecyclerView(posts:List<PostItem>){
+        val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
+            addAll(posts)
+            setOnItemClickListener { item, _ ->
+                Log.e("data", item.toString())
+            }
+        }
+        binding.rvPosts.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = groupAdapter
+        }
     }
 }
