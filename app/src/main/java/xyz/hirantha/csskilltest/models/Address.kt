@@ -1,12 +1,14 @@
 package xyz.hirantha.csskilltest.models
 
 
+import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 
 data class Address(
     @SerializedName("city")
     val city: String,
     @SerializedName("geo")
+    @Embedded(prefix = "geo_")
     val geo: Geo,
     @SerializedName("street")
     val street: String,

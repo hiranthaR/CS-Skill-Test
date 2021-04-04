@@ -9,6 +9,7 @@ import xyz.hirantha.csskilltest.data.db.dao.PostDao
 import xyz.hirantha.csskilltest.data.db.dao.UserDao
 import xyz.hirantha.csskilltest.data.remote.datasources.TypiCodeAPIServiceDataSource
 import xyz.hirantha.csskilltest.models.Post
+import xyz.hirantha.csskilltest.models.PostAndUser
 import xyz.hirantha.csskilltest.models.User
 
 class RepositoryImpl(
@@ -40,9 +41,10 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun getPosts(): LiveData<List<Post>> {
+    override suspend fun getPosts(): LiveData<List<PostAndUser>> {
         return withContext(Dispatchers.IO) {
             remoteDataSource.getPosts()
+            remoteDataSource.getUsers()
             return@withContext postDao.getPosts()
         }
     }

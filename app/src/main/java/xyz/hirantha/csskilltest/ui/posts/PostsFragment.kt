@@ -37,6 +37,7 @@ class PostsFragment : ScopedFragment(), DIAware {
     private fun bindUI() = launch {
         viewModel.posts.await().observe(viewLifecycleOwner, {
             if (it == null) return@observe
+            Log.e("data",it.toString())
         })
     }
 }

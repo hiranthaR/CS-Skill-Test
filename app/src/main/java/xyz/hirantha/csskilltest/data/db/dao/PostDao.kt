@@ -1,11 +1,9 @@
 package xyz.hirantha.csskilltest.data.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import xyz.hirantha.csskilltest.models.Post
+import xyz.hirantha.csskilltest.models.PostAndUser
 
 @Dao
 interface PostDao {
@@ -13,6 +11,7 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsertPosts(posts: List<Post>)
 
+    @Transaction
     @Query("SELECT * FROM posts;")
-    fun getPosts(): LiveData<List<Post>>
+    fun getPosts(): LiveData<List<PostAndUser>>
 }
