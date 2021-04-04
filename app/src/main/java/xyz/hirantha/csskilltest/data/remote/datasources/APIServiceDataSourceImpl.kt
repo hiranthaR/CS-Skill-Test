@@ -21,6 +21,14 @@ class APIServiceDataSourceImpl(
         get() = _users
     private val _users = MutableLiveData<List<User>>()
 
+    override val post: LiveData<Post>
+        get() = _post
+    private val _post = MutableLiveData<Post>()
+
+    override val user: LiveData<User>
+        get() = _user
+    private val _user = MutableLiveData<User>()
+
     override suspend fun getPosts() {
         try {
             val posts = typiCodeAPIService.getPosts().await()
@@ -37,6 +45,30 @@ class APIServiceDataSourceImpl(
         try {
             val users = typiCodeAPIService.getUsers().await()
             _users.postValue(users)
+        } catch (e: NoConnectivityException) {
+            Log.d("API Service", "no connectivity")
+        } catch (e: Exception) {
+            Log.d("API Service", e.message + "")
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getPost(postId: Int) {
+        try {
+            val post = typiCodeAPIService.getPost(postId).await()
+            _post.postValue(post)
+        } catch (e: NoConnectivityException) {
+            Log.d("API Service", "no connectivity")
+        } catch (e: Exception) {
+            Log.d("API Service", e.message + "")
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getUser(userId: Int) {
+        try {
+            val user = typiCodeAPIService.getUser(userId).await()
+            _user.postValue(user)
         } catch (e: NoConnectivityException) {
             Log.d("API Service", "no connectivity")
         } catch (e: Exception) {

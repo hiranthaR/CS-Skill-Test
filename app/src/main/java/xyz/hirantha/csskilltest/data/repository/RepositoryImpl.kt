@@ -34,6 +34,16 @@ class RepositoryImpl(
                 }
                 persistUsers(it)
             }
+
+            post.observeForever {
+                persistPost(it)
+            }
+            user.observeForever {
+                it.apply {
+                    avatar = avatarUrl(it)
+                }
+                persistUser(it)
+            }
         }
     }
 
@@ -49,11 +59,37 @@ class RepositoryImpl(
         }
     }
 
+    private fun persistUser(user: User) {
+        GlobalScope.launch(Dispatchers.IO) {
+            userDao.upsertUser(user)
+        }
+    }
+
+    private fun persistPost(post: Post) {
+        GlobalScope.launch(Dispatchers.IO) {
+            postDao.upsertPost(post)
+        }
+    }
+
     override suspend fun getPosts(): LiveData<List<PostAndUser>> {
         return withContext(Dispatchers.IO) {
             remoteDataSource.getPosts()
             remoteDataSource.getUsers()
             return@withContext postDao.getPosts()
+        }
+    }
+
+    override suspend fun getPost(postId: Int): LiveData<PostAndUser> {
+        return withContext(Dispatchers.IO) {
+            remoteDataSource.getPost(postId)
+            return@withContext postDao.getPost(postId)
+        }
+    }
+
+    override suspend fun getUser(userId: Int): LiveData<User> {
+        return withContext(Dispatchers.IO) {
+            remoteDataSource.getUser(userId)
+            return@withContext userDao.getUser(userId)
         }
     }
 
