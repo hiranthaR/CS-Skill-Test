@@ -8,8 +8,10 @@ import xyz.hirantha.csskilltest.internal.NoConnectivityException
 import xyz.hirantha.csskilltest.models.Post
 import xyz.hirantha.csskilltest.models.User
 
-class TypiCodeAPIServiceDataSourceImpl(private val apiService: TypiCodeAPIService) :
-    TypiCodeAPIServiceDataSource {
+class APIServiceDataSourceImpl(
+    private val typiCodeAPIService: TypiCodeAPIService,
+) :
+    APIServiceDataSource {
 
     override val posts: LiveData<List<Post>>
         get() = _posts
@@ -21,7 +23,7 @@ class TypiCodeAPIServiceDataSourceImpl(private val apiService: TypiCodeAPIServic
 
     override suspend fun getPosts() {
         try {
-            val posts = apiService.getPosts().await()
+            val posts = typiCodeAPIService.getPosts().await()
             _posts.postValue(posts)
         } catch (e: NoConnectivityException) {
             Log.d("API Service", "no connectivity")
@@ -33,7 +35,7 @@ class TypiCodeAPIServiceDataSourceImpl(private val apiService: TypiCodeAPIServic
 
     override suspend fun getUsers() {
         try {
-            val users = apiService.getUsers().await()
+            val users = typiCodeAPIService.getUsers().await()
             _users.postValue(users)
         } catch (e: NoConnectivityException) {
             Log.d("API Service", "no connectivity")

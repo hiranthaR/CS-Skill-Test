@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import xyz.hirantha.csskilltest.models.Post
 import xyz.hirantha.csskilltest.models.User
 
-interface TypiCodeAPIServiceDataSource {
+interface APIServiceDataSource {
 
     val posts: LiveData<List<Post>>
     val users: LiveData<List<User>>

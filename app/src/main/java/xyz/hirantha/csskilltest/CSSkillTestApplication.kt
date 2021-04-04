@@ -5,8 +5,8 @@ import org.kodein.di.*
 import org.kodein.di.android.x.androidXModule
 import xyz.hirantha.csskilltest.data.db.AppDatabase
 import xyz.hirantha.csskilltest.data.remote.api.TypiCodeAPIService
-import xyz.hirantha.csskilltest.data.remote.datasources.TypiCodeAPIServiceDataSource
-import xyz.hirantha.csskilltest.data.remote.datasources.TypiCodeAPIServiceDataSourceImpl
+import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSource
+import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSourceImpl
 import xyz.hirantha.csskilltest.data.remote.interceptors.ConnectivityInterceptor
 import xyz.hirantha.csskilltest.data.remote.interceptors.ConnectivityInterceptorImpl
 import xyz.hirantha.csskilltest.data.repository.Repository
@@ -33,14 +33,14 @@ class CSSkillTestApplication : Application(), DIAware {
         bind<TypiCodeAPIService>() with singleton { TypiCodeAPIService(instance()) }
 
         //data source
-        bind<TypiCodeAPIServiceDataSource>() with singleton {
-            TypiCodeAPIServiceDataSourceImpl(
+        bind<APIServiceDataSource>() with singleton {
+            APIServiceDataSourceImpl(
                 instance()
             )
         }
 
         // repository
-        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(),instance()) }
+        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(), instance()) }
 
         // view model factories
         bind() from provider { PostsViewModelFactory(instance()) }

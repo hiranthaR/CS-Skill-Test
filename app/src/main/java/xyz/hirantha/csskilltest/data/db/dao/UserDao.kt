@@ -12,10 +12,4 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsertUsers(users: List<User>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsertUser(user: User)
-
-    @Query("SELECT * FROM users;")
-    fun getUsers(): LiveData<List<User>>
 }
