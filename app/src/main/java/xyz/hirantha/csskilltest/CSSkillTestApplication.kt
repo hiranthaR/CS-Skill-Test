@@ -4,6 +4,8 @@ import android.app.Application
 import org.kodein.di.*
 import org.kodein.di.android.x.androidXModule
 import xyz.hirantha.csskilltest.data.db.AppDatabase
+import xyz.hirantha.csskilltest.data.providers.ThemeProvider
+import xyz.hirantha.csskilltest.data.providers.ThemeProviderImpl
 import xyz.hirantha.csskilltest.data.remote.api.TypiCodeAPIService
 import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSource
 import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSourceImpl
@@ -43,9 +45,13 @@ class CSSkillTestApplication : Application(), DIAware {
             )
         }
 
+        // providers
+        bind<ThemeProvider>() with singleton { ThemeProviderImpl(instance()) }
+
         // repository
         bind<Repository>() with singleton {
             RepositoryImpl(
+                instance(),
                 instance(),
                 instance(),
                 instance(),

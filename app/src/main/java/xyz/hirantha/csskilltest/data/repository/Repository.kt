@@ -11,4 +11,6 @@ interface Repository {
     suspend fun getPost(postId: Int): LiveData<PostAndUserWithComments>
     suspend fun getUser(userId: Int): LiveData<User>
     suspend fun addPost(title: String, body: String): Response
+    fun setTheme(theme:Int)
+    fun getTheme(): LiveData<Int>
 }

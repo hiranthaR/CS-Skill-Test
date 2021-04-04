@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import xyz.hirantha.csskilltest.data.db.dao.CommentDao
 import xyz.hirantha.csskilltest.data.db.dao.PostDao
 import xyz.hirantha.csskilltest.data.db.dao.UserDao
+import xyz.hirantha.csskilltest.data.providers.ThemeProvider
 import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSource
 import xyz.hirantha.csskilltest.internal.Response
 import xyz.hirantha.csskilltest.models.*
@@ -19,6 +20,7 @@ class RepositoryImpl(
     private val postDao: PostDao,
     private val userDao: UserDao,
     private val commentDao: CommentDao,
+    private val themeProvider: ThemeProvider
 ) : Repository {
 
     init {
@@ -111,6 +113,10 @@ class RepositoryImpl(
             )
         }
     }
+
+    override fun setTheme(theme: Int) = themeProvider.setTheme(theme)
+
+    override fun getTheme() = themeProvider.getTheme()
 
     private fun avatarUrl(user: User) = "https://www.gravatar.com/avatar/${
         md5(

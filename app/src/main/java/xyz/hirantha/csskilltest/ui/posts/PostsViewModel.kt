@@ -8,4 +8,7 @@ class PostsViewModel(private val repository: Repository) : ViewModel() {
 
     val posts by lazyDeferred { repository.getPosts() }
 
+    fun toggleTheme() {
+        repository.toggleTheme()
+    }
 }
