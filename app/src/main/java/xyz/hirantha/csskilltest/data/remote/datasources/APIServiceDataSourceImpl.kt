@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import xyz.hirantha.csskilltest.data.remote.api.TypiCodeAPIService
 import xyz.hirantha.csskilltest.internal.NoConnectivityException
+import xyz.hirantha.csskilltest.models.Comment
 import xyz.hirantha.csskilltest.models.Post
 import xyz.hirantha.csskilltest.models.User
 
@@ -28,6 +29,10 @@ class APIServiceDataSourceImpl(
     override val user: LiveData<User>
         get() = _user
     private val _user = MutableLiveData<User>()
+
+    override val comments: LiveData<List<Comment>>
+        get() = _comments
+    private val _comments = MutableLiveData<List<Comment>>()
 
     override suspend fun getPosts() {
         try {
@@ -69,6 +74,18 @@ class APIServiceDataSourceImpl(
         try {
             val user = typiCodeAPIService.getUser(userId).await()
             _user.postValue(user)
+        } catch (e: NoConnectivityException) {
+            Log.d("API Service", "no connectivity")
+        } catch (e: Exception) {
+            Log.d("API Service", e.message + "")
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getComments(postId: Int) {
+        try {
+            val comments = typiCodeAPIService.getComments(postId).await()
+            _comments.postValue(comments)
         } catch (e: NoConnectivityException) {
             Log.d("API Service", "no connectivity")
         } catch (e: Exception) {

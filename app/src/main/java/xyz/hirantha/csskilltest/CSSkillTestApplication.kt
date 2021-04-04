@@ -22,6 +22,7 @@ class CSSkillTestApplication : Application(), DIAware {
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { instance<AppDatabase>().postDao() }
         bind() from singleton { instance<AppDatabase>().userDao() }
+        bind() from singleton { instance<AppDatabase>().commentDao() }
 
         //interceptors
         bind<ConnectivityInterceptor>() with singleton {
@@ -41,7 +42,7 @@ class CSSkillTestApplication : Application(), DIAware {
         }
 
         // repository
-        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(), instance()) }
+        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(), instance(),instance()) }
 
         // view model factories
         bind() from provider { PostsViewModelFactory(instance()) }

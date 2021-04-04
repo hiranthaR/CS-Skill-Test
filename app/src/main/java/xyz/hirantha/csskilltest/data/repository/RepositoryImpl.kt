@@ -5,12 +5,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import xyz.hirantha.csskilltest.data.db.dao.CommentDao
 import xyz.hirantha.csskilltest.data.db.dao.PostDao
 import xyz.hirantha.csskilltest.data.db.dao.UserDao
 import xyz.hirantha.csskilltest.data.remote.datasources.APIServiceDataSource
-import xyz.hirantha.csskilltest.models.Post
-import xyz.hirantha.csskilltest.models.PostAndUser
-import xyz.hirantha.csskilltest.models.User
+import xyz.hirantha.csskilltest.models.*
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -18,6 +17,7 @@ class RepositoryImpl(
     private val remoteDataSource: APIServiceDataSource,
     private val postDao: PostDao,
     private val userDao: UserDao,
+    private val commentDao: CommentDao,
 ) : Repository {
 
     init {
@@ -37,12 +37,21 @@ class RepositoryImpl(
             post.observeForever {
                 persistPost(it)
             }
+
             user.observeForever {
                 it.apply {
                     avatar = avatarUrl(it)
                 }
                 persistUser(it)
             }
+
+            comments.observeForever { persistComments(it) }
+        }
+    }
+
+    private fun persistComments(comments: List<Comment>?) {
+        GlobalScope.launch(Dispatchers.IO) {
+            comments?.let { commentDao.upsertComments(it) }
         }
     }
 
@@ -78,9 +87,10 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun getPost(postId: Int): LiveData<PostAndUser> {
+    override suspend fun getPost(postId: Int): LiveData<PostAndUserWithComments> {
         return withContext(Dispatchers.IO) {
             remoteDataSource.getPost(postId)
+            remoteDataSource.getComments(postId)
             return@withContext postDao.getPost(postId)
         }
     }

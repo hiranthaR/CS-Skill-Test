@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import xyz.hirantha.csskilltest.models.Post
 import xyz.hirantha.csskilltest.models.PostAndUser
+import xyz.hirantha.csskilltest.models.PostAndUserWithComments
 
 @Dao
 interface PostDao {
@@ -18,8 +19,7 @@ interface PostDao {
     @Query("SELECT * FROM posts;")
     fun getPosts(): LiveData<List<PostAndUser>>
 
-
     @Transaction
     @Query("SELECT * FROM posts WHERE id=:postId;")
-    fun getPost(postId:Int): LiveData<PostAndUser>
+    fun getPost(postId:Int): LiveData<PostAndUserWithComments>
 }
