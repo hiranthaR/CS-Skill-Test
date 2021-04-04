@@ -1,9 +1,12 @@
 package xyz.hirantha.csskilltest.ui.createpost
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.launch
 import org.kodein.di.DI
@@ -13,6 +16,7 @@ import org.kodein.di.instance
 import xyz.hirantha.csskilltest.databinding.FragmentCreatePostBinding
 import xyz.hirantha.csskilltest.internal.ScopedFragment
 import xyz.hirantha.csskilltest.internal.eventexecutor.MessageEvents
+
 
 class CreatePostFragment : ScopedFragment(), DIAware, MessageEvents {
 
@@ -44,6 +48,10 @@ class CreatePostFragment : ScopedFragment(), DIAware, MessageEvents {
         )
 
         binding.btnCreatePost.setOnClickListener {
+            val imm: InputMethodManager? =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm?.hideSoftInputFromWindow(requireView().windowToken, 0)
+
             val title = binding.etTitle.text.toString()
             val content = binding.etContent.text.toString()
 

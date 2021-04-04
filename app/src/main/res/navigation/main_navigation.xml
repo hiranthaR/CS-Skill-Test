@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_postsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -38,4 +41,9 @@
             android:name="userId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="xyz.hirantha.csskilltest.ui.createpost.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
 </navigation>

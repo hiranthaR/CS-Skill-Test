@@ -23,16 +23,19 @@ class CreatePostViewModel(private val repository: Repository) : ViewModel() {
         GlobalScope.launch(Dispatchers.IO) {
             when (repository.addPost(title, content)) {
                 Response.DONE -> {
+                    _posting.postValue(false)
                     GlobalScope.launch(Dispatchers.Main) {
                         liveMessageEvent.sendEvent { showSnackBar("Post added successfully!") }
                     }
                 }
                 Response.CONNECTION_FAIL -> {
+                    _posting.postValue(false)
                     GlobalScope.launch(Dispatchers.Main) {
                         liveMessageEvent.sendEvent { showSnackBar("No Collection!") }
                     }
                 }
                 Response.ERROR -> {
+                    _posting.postValue(false)
                     GlobalScope.launch(Dispatchers.Main) {
                         liveMessageEvent.sendEvent { showSnackBar("Something went wrong!") }
                     }

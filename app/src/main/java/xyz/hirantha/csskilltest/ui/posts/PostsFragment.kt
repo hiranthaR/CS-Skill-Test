@@ -42,6 +42,11 @@ class PostsFragment : ScopedFragment(), DIAware {
     }
 
     private fun bindUI() = launch {
+
+        binding.fabAddPost.setOnClickListener {
+            navController.navigate(R.id.action_postsFragment_to_createPostFragment)
+        }
+
         viewModel.posts.await().observe(viewLifecycleOwner, {
             if (it == null) return@observe
             binding.progressCircular.visibility = View.GONE
