@@ -12,9 +12,11 @@ import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.factory
+import xyz.hirantha.csskilltest.BuildConfig
 import xyz.hirantha.csskilltest.R
 import xyz.hirantha.csskilltest.databinding.FragmentProfileBinding
 import xyz.hirantha.csskilltest.internal.ScopedFragment
+import xyz.hirantha.csskilltest.models.User
 
 class ProfileFragment : ScopedFragment(), DIAware {
 
@@ -41,14 +43,16 @@ class ProfileFragment : ScopedFragment(), DIAware {
 
     private fun bindUI() = launch {
         viewModel.user.await().observeForever {
-            if(it== null) return@observeForever
+            if (it == null) return@observeForever
             binding.progressCircular.visibility = View.GONE
-            Glide.with(requireContext())
-                .load(it.avatar)
-                .centerCrop()
-                .placeholder(R.drawable.user)
-                .error(R.drawable.user)
-                .into(binding.imgAvatar)
+            context?.let { context ->
+                Glide.with(context)
+                    .load(it.avatar)
+                    .centerCrop()
+                    .placeholder(R.drawable.user)
+                    .error(R.drawable.user)
+                    .into(binding.imgAvatar)
+            }
             binding.tvName.text = it.name
             binding.tvEmail.text = it.email
             binding.tvAddress.text = "${it.address.street}, ${it.address.suite}, ${it.address.city}"
@@ -57,6 +61,19 @@ class ProfileFragment : ScopedFragment(), DIAware {
             binding.tvCompany.text = it.company.name
             binding.tvWebsite.text = it.website
             binding.tvPhone.text = it.phone
+
+            context?.let { context ->
+                Glide.with(context)
+                    .load(getGoogleMapStaticImageUrl(it))
+                    .centerCrop()
+                    .placeholder(R.drawable.map)
+                    .error(R.drawable.error)
+                    .into(binding.imgMap)
+            }
         }
     }
+
+    private fun getGoogleMapStaticImageUrl(user: User) =
+        "https://maps.googleapis.com/maps/api/staticmap?center=${user.address.geo.lat},${user.address.geo.lng}" +
+                "&size=600x400&sensor=false&zoom=15&key=${BuildConfig.GOOGLE_MAP_API_KEY}"
 }
