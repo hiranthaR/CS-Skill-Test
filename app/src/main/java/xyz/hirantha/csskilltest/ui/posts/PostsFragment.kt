@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -55,6 +56,11 @@ class PostsFragment : ScopedFragment(), DIAware {
             if (it == null) return@observe
             binding.progressCircular.visibility = View.GONE
             initPostRecyclerView(it.toPostItems())
+        })
+
+        viewModel.theme.await().observe(viewLifecycleOwner,{
+            if(it == null) return@observe
+            AppCompatDelegate.setDefaultNightMode(it)
         })
     }
 

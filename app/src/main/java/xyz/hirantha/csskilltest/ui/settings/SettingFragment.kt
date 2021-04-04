@@ -55,6 +55,7 @@ class SettingFragment : ScopedFragment(), DIAware {
                     R.id.btn_light -> AppCompatDelegate.MODE_NIGHT_NO
                     else -> AppCompatDelegate.MODE_NIGHT_YES
                 }
+                AppCompatDelegate.setDefaultNightMode(selectedTheme)
                 viewModel.setTheme(selectedTheme)
             }
         })
