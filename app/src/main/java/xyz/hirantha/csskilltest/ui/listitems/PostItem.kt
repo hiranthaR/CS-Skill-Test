@@ -8,7 +8,7 @@ import xyz.hirantha.csskilltest.R
 import xyz.hirantha.csskilltest.databinding.PostRowBinding
 import xyz.hirantha.csskilltest.models.PostAndUser
 
-class PostItem(private val postAndUser: PostAndUser,private val context: Context): BindableItem<PostRowBinding>() {
+class PostItem(val postAndUser: PostAndUser,private val context: Context): BindableItem<PostRowBinding>() {
     override fun bind(viewBinding: PostRowBinding, position: Int) {
         viewBinding.tvName.text = postAndUser.user.name
         viewBinding.tvContent.text = postAndUser.post.body

@@ -1,6 +1,5 @@
 package xyz.hirantha.csskilltest.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

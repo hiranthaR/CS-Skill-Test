@@ -1,6 +1,7 @@
 package xyz.hirantha.csskilltest.ui.post
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,9 @@ class PostFragment : ScopedFragment(), DIAware {
     }
 
     private fun bindUI() = launch {
-
+        viewModel.post.await().observe(viewLifecycleOwner,{
+            if(it == null) return@observe
+            Log.e("Post",it.toString())
+        })
     }
 }

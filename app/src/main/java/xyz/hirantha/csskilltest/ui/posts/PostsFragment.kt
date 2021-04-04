@@ -54,7 +54,10 @@ class PostsFragment : ScopedFragment(), DIAware {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(posts)
             setOnItemClickListener { item, _ ->
-                Log.e("data", item.toString())
+                (item as? PostItem)?.let {  postItem ->
+                    val action = PostsFragmentDirections.actionPostsFragmentToPostFragment(postItem.postAndUser.post.id)
+                    navController.navigate(action)
+                }
             }
         }
         binding.rvPosts.apply {
